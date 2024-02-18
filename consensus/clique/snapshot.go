@@ -408,15 +408,11 @@ func (s *Snapshot) apply(headers []*types.Header) (*Snapshot, error) {
 		var f1 bool
 		f1 = false
 		for i := 0; i < len(snap.TallyStakes); i++ {
+			f1 = false
 			for j := 0; j < len(snap.TallyDelegatedStake); j++ {
 				if snap.TallyStakes[i].Owner == snap.TallyDelegatedStake[j].Owner {
 					f1 = true
 					snap.TallyDelegatedStake[j].OStakes = snap.TallyStakes[i].OStakes
-				}
-
-				if header.Coinbase == snap.TallyDelegatedStake[j].Owner {
-					index = j
-					break
 				}
 			}
 			if f1 == false {
